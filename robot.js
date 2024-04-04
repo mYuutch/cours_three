@@ -11,14 +11,24 @@ function createRenderer(parent){
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(
 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
-const renderer = new THREE.WebGLRenderer({alpha:true});
+const renderer = new THREE.WebGLRenderer({alpha:false});
 renderer.setSize( parent.clientWidth, parent.clientHeight );
 camera.aspect = parent.clientWidth / parent.clientHeight;
 camera.updateProjectionMatrix();
 
 const controls = new OrbitControls( camera, renderer.domElement );
 
+
+const textureEarth = new
+THREE.TextureLoader().load('public/sunmap.jpg');
+
 // MATERIALS
+const groundMat = new THREE.MeshPhongMaterial( {
+    map: textureEarth,
+      emissiveMap: textureEarth,
+      emissive: 0xFFDD99,
+      emissiveIntensity: 1,
+     } );
 const matteBlack = new THREE.MeshLambertMaterial( { color: 0x000000 } );
 const matteWhite = new THREE.MeshLambertMaterial( { color: 0xffffff } );
 const shinyRed = new THREE.MeshPhongMaterial( { color: 0xff0000
@@ -236,6 +246,19 @@ armL.name = "armL"
 arms.add(arm)
 arms.add(armL)
 
+
+
+const ground = new THREE.Mesh(
+
+    new THREE.PlaneGeometry(20,20,20,20,20,20).rotateX(-Math.PI/ 2).translate(0,-2.58,0), groundMat
+
+
+)
+
+
+
+
+scene.add(ground)
 
 robot.add(head)
 robot.add(body)
