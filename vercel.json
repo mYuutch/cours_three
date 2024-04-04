@@ -1,0 +1,19 @@
+{
+    "version": 2,
+    "routes": [
+      {
+        "src": "/",
+        "dest": "/index.html"
+      },
+      {
+        "src": "/robot",
+        "dest": "/robot.html"
+      },
+      {
+        "src": "/(.+\\.js)",
+        "headers": { "Content-Type": "application/javascript" },
+        "continue": true
+      }
+    ]
+  }
+  
