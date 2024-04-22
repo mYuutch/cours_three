@@ -22,6 +22,12 @@ const controls = new OrbitControls( camera, renderer.domElement );
 const textureEarth = new
 THREE.TextureLoader().load('public/sunmap.jpg');
 
+const dbTexture = new
+THREE.TextureLoader().load('public/earthmap.jpg');
+dbTexture.wrapS = THREE.RepeatWrapping;
+dbTexture.wrapT = THREE.RepeatWrapping;
+dbTexture.repeat.set( 3, 1 );
+
 // MATERIALS
 const groundMat = new THREE.MeshPhongMaterial( {
     map: textureEarth,
@@ -34,6 +40,8 @@ const matteWhite = new THREE.MeshLambertMaterial( { color: 0xffffff } );
 const shinyRed = new THREE.MeshPhongMaterial( { color: 0xff0000
     ,shininess: 50, specular: 0xffffff} );
 
+
+    const applyText = new THREE.MeshPhongMaterial( { map: dbTexture } );
 
 
 
@@ -91,7 +99,7 @@ camera.position.z = 5;
 const body = new THREE.Group();
 body.add(
     new THREE.Mesh(
-        new THREE.CylinderGeometry(4, 7, 10).scale(0.1,0.1,0.1).translate(0,-0.6,0), shinyRed
+        new THREE.CylinderGeometry(4, 7, 10).scale(0.1,0.1,0.1).translate(0,-0.6,0), applyText
     )
 )
 

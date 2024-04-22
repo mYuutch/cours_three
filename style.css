@@ -1,10 +1,75 @@
 *{
   margin: 0;
+  box-sizing: border-box;
 }
 
+@keyframes textShine {
+  0% {
+      background-position: 0% 50%;
+  }
+  100% {
+      background-position: 100% 50%;
+  }
+}
+
+nav{
+  position: absolute;
+  display: flex;
+  width: 100%;
+  gap: 20px;
+  padding: 30px 20%;
+  z-index: 100000;
+}
+
+span{
+  justify-self: flex-start;
+  margin-right: auto;
+  font-weight: 700;
+
+}
+.three-wrapper{
+  display: flex;
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+}
+.three-title{
+  position: absolute;
+  z-index: -1;
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-weight: 800;
+  font-size: 15vw;
+  background: linear-gradient(
+    to right,
+    #7953cd 20%,
+    #6acef8 30%,
+    #9411ab 70%,
+    #8d63ed 80%
+);
+-webkit-background-clip: text;
+background-clip: text;
+-webkit-text-fill-color: transparent;
+text-fill-color: transparent;
+background-size: 500% auto;
+animation: textShine 3s ease-in-out infinite alternate;
+
+
+
+}
+
+nav *{
+  justify-self: flex-end;
+  text-decoration: none;
+  color: white;
+  font-family: sans-serif;
+  font-size: 1.2em;
+}
 body{
   display: flex;
   flex-wrap: wrap;
+  background-color: rgb(25, 25, 25);
 }
 
 #app{

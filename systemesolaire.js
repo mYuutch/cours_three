@@ -15,14 +15,15 @@ const renderer = new THREE.WebGLRenderer({});
 renderer.setSize( parent.clientWidth, parent.clientHeight );
 camera.aspect = parent.clientWidth / parent.clientHeight;
 camera.updateProjectionMatrix();
+renderer.shadowMap.enabled = true
+
+
 
 const controls = new OrbitControls( camera, renderer.domElement );
 camera.position.z = 5;
 
-const directionalLight = new THREE.DirectionalLight( 0xffffff, 3);
-directionalLight.target = scene
-directionalLight.translateZ(10)
-scene.add(directionalLight)
+
+
 function createSolar() {
     const solarSystem = new THREE.Group();
     const earthSystem = new THREE.Group();
@@ -43,6 +44,7 @@ function createSolar() {
       emissive: 0xFFDD99,
       emissiveIntensity: 1,
     });
+   
   
     const earthMaterial = new THREE.MeshPhongMaterial({
       map: earthTexture,
@@ -73,7 +75,20 @@ function createSolar() {
       new THREE.SphereGeometry(0.2),
       moonMaterial
     );
+    
+    const pointLight = new THREE.PointLight(0xffffff, 1, 0, 100);
+    pointLight.position.set(0, 0, 0);
+    pointLight.castShadow = true;
+    pointLight.intensity = 2;
+    pointLight.decay = 0
+    solarSystem.add(pointLight);
+    
 
+    
+    moon.castShadow = true;
+    moon.receiveShadow = true;
+    earth.castShadow = true;
+    earth.receiveShadow = true;
     earthSystem.position.set(6,0,0)
 
     earthSystem.add(earth);
@@ -86,15 +101,17 @@ function createSolar() {
 
     moon.position.set(1.6,0,0)
 
-
+    
   
-    const pointLight = new THREE.PointLight(0xffffff, 1, 0, 0);
-    pointLight.position.set(0, 0, 0);
-    solarSystem.add(pointLight);
+
   
     const ambientLight = new THREE.AmbientLight(0xffffff, 0.2);
+    ambientLight.intensity = 0.5;
     solarSystem.add(ambientLight);
 
+
+
+    
     solarSystem.setTime = function(time){
    
       earthSystem.rotation.y = time/28
